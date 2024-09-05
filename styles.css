@@ -1,0 +1,98 @@
+/* Gameboard class that changes height, width, and in JS, the color */
+.game-board{
+    width: 200px;
+    height: 200px;
+    /* Fixes all the blocks flowing down the screen and makes the wrap to new layers */
+    display: flex;
+    flex-wrap: wrap
+}
+
+/* This is used to make the the game boards next to each other and spaced out */
+#gameboard-container{
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.block{
+    width: 20px;
+    height: 20px;
+    /* border: solid 1px black; */ /* Creates black outline */
+    /* box-sizing: border-box; */ /* Makes the outline inside the blocks */
+}
+
+.option-container{
+    width: 500px;
+    height: 60px;
+    margin: 30px 0;
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+}
+
+/*  Changes the properties of the ships  */
+.destroyer{
+    background-color: brown;
+}
+.submarine{
+    background-color: green;
+}
+.cruiser{
+    background-color: purple;
+}
+.battleship{
+    background-color: orange;
+}
+.carrier{
+    background-color: blue;
+}
+
+
+/* Changes the preview of the ships */
+.destroyer-preview{ /* 2:1 Ratio */
+    width: 20px;
+    height: 10px;
+    margin: 3px;
+}
+.submarine-preview{/* 3:1 Ratio */
+    width: 30px;
+    height: 10px;
+    margin: 3px;
+}
+.cruiser-preview{ /* 3:1 Ratio */
+    width: 30px;
+    height: 10px;
+    margin: 3px;
+}
+.battleship-preview{ /* 4:1 Ratio */
+    width: 40px;
+    height: 10px;
+    margin: 3px;
+}
+.carrier-preview{ /* 5:1 Ratio */
+    width: 50px;
+    height: 10px;
+    margin: 3px;
+}
+
+/* Hides the computer's ships */
+#computer .destroyer,
+#computer .submarine,
+#computer .cruiser,
+#computer .battleship,
+#computer .carrier{
+    background-color: pink;
+}
+
+/* Changes the hover color */
+.hover{
+    background-color: grey;
+}
+/* Changes the hit color */
+.boom{
+    background-color: red !important;
+}
+/* Changes the miss color */
+.empty{
+    background-color: grey !important;
+}
