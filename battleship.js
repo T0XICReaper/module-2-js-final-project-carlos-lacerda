@@ -9,6 +9,22 @@ const turnDisplay = document.getElementById("turn-display")
 const bombSound = new Audio('explosion.wav') //sets the explosion sound to a variable
 const missSound = new Audio('miss-sound.wav') //sets the miss sound to a variable
 
+const width = 10 //how many squares you want for the game board
+
+let draggedShipElement = null; //define dragged ship element
+let draggedShip = null //Saves the target ship that was dragged
+let angle = 0 //sets default angle of ships to 0
+
+let notDropped = false //defines not dropped and sets it false
+
+let gameOver = false //sets game over to false
+let playerTurn //define player turn
+
+let playerHits = [] //empty array to later store the player's hits
+let computerHits = []//empty array to later store the computer's hits
+const playerSunkShips = [] //empty array to later store the player's sunk ships
+const computerSunkShips = [] //empty array to later store the computer's sunk ships
+
 /* const wave = document.getElementById('computer'); */
 //Testing animation stuff
 /* const waveImage = new Image();
@@ -20,7 +36,7 @@ let frameY = 0
 let gameFrame = 0
 const frameDelay = 5 */
 
-let angle = 0
+
 
 //flips ships
 const flip = () => {
@@ -33,8 +49,6 @@ const flip = () => {
 flipButton.addEventListener('click', flip)
 
 //Creating boards
-const width = 10 //how many squares you want for the game board
-
 const createBoard = (user) => {
     const gameBoardContainer = document.createElement('div') //creates an empty div
     gameBoardContainer.classList.add('game-board') // adds the class "game-board" to the div
@@ -69,7 +83,7 @@ const battleship = new Ship('battleship', 4)
 const carrier = new Ship('carrier', 5)
 
 const ships = [destroyer, submarine, cruiser, battleship, carrier] //makes an array of the ships
-let notDropped = false //adds an empty variable for when a ship is not dropped
+
 
 const getValidity = (allBoardBlocks, isHorizontal, startIndex, ship) =>{
     //Checks if random index is smaller or equal to 100 - ship length. As long as this is true then return the index
@@ -131,7 +145,6 @@ const addShipPiece = (user, ship, startId) => {
 ships.forEach(ship => addShipPiece('computer', ship)) //Draws all the ships to the computer board
 
 //Drag player ships
-let draggedShip = null //Saves the target ship that was dragged
 const optionShips = Array.from(optionContainer.children) //Creates an array from the option container's children
 
 //goes through the option ships and makes them draggable
@@ -169,6 +182,7 @@ function dropShip(e){
     addShipPiece('player', draggedShip, startId) //Adds a piece with these parameters
     if (!notDropped){
         draggedShipElement.remove() //if the ship is dropped, remove piece
+        draggedShip = null //Clears the 
         draggedShipElement.setAttribute('draggable', false) //Disables dragging the piece after it has been places
     }
 }
@@ -193,8 +207,7 @@ const highlightArea = (startIndex, ship) => {
 
 //game logic
 
-let gameOver = false //sets game over to false
-let playerTurn
+
 
 //Start Game
 const startGame = () => {
@@ -211,11 +224,6 @@ const startGame = () => {
     }
 }
 startButton.addEventListener('click', startGame) //adds an event listener to the "START" button to start the game on click
-
-let playerHits = [] //empty array to later store the player's hits
-let computerHits = []//empty array to later store the computer's hits
-const playerSunkShips = [] //empty array to later store the player's sunk ships
-const computerSunkShips = [] //empty array to later store the computer's sunk ships
 
 function handleClick(e){
     //Checks if the game is not over, and if the class list contains taken
