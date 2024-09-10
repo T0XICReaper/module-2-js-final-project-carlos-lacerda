@@ -1,7 +1,31 @@
+/* Makes a font to make it look pixelated */
+@font-face {
+    font-family: pixel-font;
+    src: url('Minecraft.ttf');
+}
+
+body{
+    font-family: pixel-font;
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    color: white;
+    font-size: 30px;
+}
+
+.header{
+    font-size: 60px;
+    color: #B668B6;
+}
 /* Gameboard class that changes height, width, and in JS, the color */
 .game-board{
     width: 200px;
     height: 200px;
+    /* background-image:url('Wave.png'); */
+    background-color: #03AFC9;
     /* Fixes all the blocks flowing down the screen and makes the wrap to new layers */
     display: flex;
     flex-wrap: wrap
@@ -17,6 +41,8 @@
 .block{
     width: 20px;
     height: 20px;
+    margin: 0;
+    padding: 0;
     /* border: solid 1px black; */ /* Creates black outline */
     /* box-sizing: border-box; */ /* Makes the outline inside the blocks */
 }
@@ -25,7 +51,7 @@
     width: 500px;
     height: 60px;
     margin: 30px 0;
-    background-color: yellow;
+    background-color: #FEC834;
     display: flex;
     align-items: center;
 }
@@ -41,7 +67,7 @@
     background-color: purple;
 }
 .battleship{
-    background-color: orange;
+    background-color: #F97510;
 }
 .carrier{
     background-color: blue;
@@ -81,7 +107,8 @@
 #computer .cruiser,
 #computer .battleship,
 #computer .carrier{
-    background-color: pink;
+    /* background-image:url('Wave.png');  */
+    background-color: #03AFC9;
 }
 
 /* Changes the hover color */
@@ -91,6 +118,7 @@
 /* Changes the hit color */
 .boom{
     background-color: red !important;
+    background-image: url('hit.png');
 }
 /* Changes the miss color */
 .empty{

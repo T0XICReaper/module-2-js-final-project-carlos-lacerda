@@ -6,6 +6,20 @@ const startButton = document.getElementById("start-button")
 const infoDisplay = document.getElementById("info")
 const turnDisplay = document.getElementById("turn-display")
 
+const bombSound = new Audio('explosion.wav') //sets the explosion sound to a variable
+const missSound = new Audio('miss-sound.wav') //sets the miss sound to a variable
+
+/* const wave = document.getElementById('computer'); */
+//Testing animation stuff
+/* const waveImage = new Image();
+waveImage.src = 'wave.png'
+const spriteWidth = 20
+const spriteHeight = 20
+let frameX = 0
+let frameY = 0
+let gameFrame = 0
+const frameDelay = 5 */
+
 let angle = 0
 
 //flips ships
@@ -21,10 +35,10 @@ flipButton.addEventListener('click', flip)
 //Creating boards
 const width = 10 //how many squares you want for the game board
 
-const createBoard = (color, user) => {
+const createBoard = (user) => {
     const gameBoardContainer = document.createElement('div') //creates an empty div
     gameBoardContainer.classList.add('game-board') // adds the class "game-board" to the div
-    gameBoardContainer.style.backgroundColor = color //goes into the style sheet and makes the background color depending on the input
+     //goes into the style sheet and makes the background color depending on the input
     gameBoardContainer.id = user //Create an ID for the board based on the "user" input
     for(let i=0; i < width * width; i++){
         const block = document.createElement('div') //creates an empty div
@@ -34,8 +48,8 @@ const createBoard = (color, user) => {
     }
     gamesBoardContainer.append(gameBoardContainer) //adds the div to the div in HTML with the id = "gameboard-container"
 }
-createBoard('yellow', "player") //Creates Player Board
-createBoard('pink', "computer") //Creates Computer Board
+createBoard("player") //Creates Player Board
+createBoard("computer") //Creates Computer Board
 
 //Creating Ships
 
@@ -212,6 +226,7 @@ function handleClick(e){
         }
         //check if the target ship is there
         if(e.target.classList.contains('taken')){
+            bombSound.play() //Plays an explosion sound effect
             e.target.classList.add('boom') //adds the class boom to the cell
             infoDisplay.textContent = "You hit the computer's ship!" //Displays that you hit the ship
             let classes = Array.from(e.target.classList) //Sets an array to equal the class list
@@ -219,6 +234,7 @@ function handleClick(e){
             playerHits.push(...classes) //pushes the remaining ship class name into the array playerHits
             checkScore('player', playerHits, playerSunkShips) //check the player hists and ships sunk to change score
         }else{   //if the class does no contain 'taken'
+            missSound.play() //Plays a miss sound
             infoDisplay.textContent = 'Miss!' //display that you missed
             e.target.classList.add('empty') //add the class empty to style it
         }
@@ -246,12 +262,14 @@ function computerGo(){
             
             //If there is a ship then hit the ship
             if(allBoardBlocks[randomGo].classList.contains('taken')){
+                bombSound.play() //Plays an explosion sound effect
                 infoDisplay.textContent = 'The Computer hit your ship!' //display that the ship was hit
                 allBoardBlocks[randomGo].classList.add('boom') //Marks the square as a hit
                 let classes = Array.from(allBoardBlocks[randomGo.classList]) //creates an array of the classes under the board div
                 classes = classes.filter(className => className !== 'block' && className !== 'boom' && className !== 'taken') //filters out everything other than the ships
                 computerHits.push(...classes)
             }else{
+                missSound.play() //Plays a miss sound
                 infoDisplay.textContent = 'The Computer missed!'; //Display that the computer missed
                 allBoardBlocks[randomGo].classList.add('empty'); // Mark the square as missed
             }
